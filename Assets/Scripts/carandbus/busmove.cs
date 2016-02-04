@@ -16,8 +16,7 @@ public class busmove : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider other) {
-		if (other.gameObject.name	=="destorycar" || other.gameObject.name	=="light"||  other.gameObject.name	=="leftwall" || other.gameObject.name	=="rightwall") {
-
+		if (other.gameObject.name == "destoryMenu" || other.gameObject.name	=="destorycar" || other.gameObject.name	=="light"||  other.gameObject.name	=="leftwall" || other.gameObject.name	=="rightwall") {
 
 			Destroy (this.gameObject); // destory me
 

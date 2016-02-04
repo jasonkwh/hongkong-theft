@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - car
+  - New Tag
+  - leftwall
+  - rightwall
+  - Destory
   layers:
   - Default
   - TransparentFX

@@ -159,15 +159,11 @@ public class autojump2 : MonoBehaviour {
 			
 			}
 
-			if (other.gameObject.name	== "bus(Clone)") {
-				Debug.Log ("bus hit u");
-				if (life.activeSelf == false) {
-					gothit = true;
-				}
+
 			//	this.gameObject.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z - jumpdistance);
 
 
-			}
+
 			//if (other.gameObject.tag == "car") {
 			if (other.gameObject.name	== "sideright") {
 
@@ -182,7 +178,7 @@ public class autojump2 : MonoBehaviour {
 				this.gameObject.transform.position = new Vector3 (transform.position.x - 1, transform.position.y, transform.position.z);
 			} else
 	
-			if (other.gameObject.name	== "newcar(Clone)") {
+				if (other.gameObject.tag == "car") {
 
 				Debug.Log ("Car hit you");
 				if (life.activeSelf == false) {
