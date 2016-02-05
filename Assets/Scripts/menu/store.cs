@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class store : MonoBehaviour {
-	public GameObject MainMenu;
+public class store : Menu {
+
 	// Use this for initialization
 	public void ReturnToMenu (){
-		this.gameObject.SetActive (false);
-		MainMenu.SetActive (true);
-		Debug.Log ("Menu");
+		
+		shop.SetActive (false);
+		Menu.SetActive (true);
+		Debug.Log ("Return To Menu");
+
 	}
 
 

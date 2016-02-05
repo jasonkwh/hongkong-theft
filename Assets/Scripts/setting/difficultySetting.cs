@@ -30,7 +30,7 @@ public class difficultySetting : MonoBehaviour {
 	void Update (){
 
 
-		if (menu.Getstart() == true) {
+		if (GameObject.Find("MenuController").GetComponent<MenuController>().ReturnPlayerStatus() == true ) {
 			lost = GameObject.Find ("thief").GetComponent<autojump2> ().getgothit (); // did u get hit by car or bus
 			currentCoin = GameObject.Find ("generationtrack").GetComponent<generation> ().getcoins (); //total coin
 			score = GameObject.Find ("thief").GetComponent<autojump2> ().getscores (); // total score

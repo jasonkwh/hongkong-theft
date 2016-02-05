@@ -13,7 +13,7 @@ public class trackmove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (menu.Getstart() == true) {
+		if (GameObject.Find("MenuController").GetComponent<MenuController>().ReturnPlayerStatus() == true) {
 			player = GameObject.Find ("thief");
 			//Debug.Log (this.gameObject.transform.position.z - player.transform.position.z);
 			if (this.gameObject.transform.position.z - player.transform.position.z < 30) {

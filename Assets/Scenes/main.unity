@@ -347,7 +347,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1937015527}
+      - m_Target: {fileID: 0}
         m_MethodName: buyItemScorePotion
         m_Mode: 1
         m_Arguments:
@@ -2657,7 +2657,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1937015527}
+      - m_Target: {fileID: 0}
         m_MethodName: buyItemSpeedPotion
         m_Mode: 1
         m_Arguments:
@@ -3014,7 +3014,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 22
 --- !u!1 &245420042
 GameObject:
   m_ObjectHideFlags: 0
@@ -5945,7 +5945,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1176197606}
-        m_MethodName: shopKey
+        m_MethodName: ShopMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7111,7 +7111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &869066639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12689,9 +12689,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f393e73f3d0d7340823df6974630501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Menu: {fileID: 0}
+  shop: {fileID: 0}
   player: {fileID: 869066638}
-  Shop: {fileID: 1937015526}
-  disable: {fileID: 1589549216}
 --- !u!114 &1176197607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12762,7 +12762,7 @@ RectTransform:
   - {fileID: 206692158}
   - {fileID: 694700460}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -13919,7 +13919,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1937015527}
+      - m_Target: {fileID: 0}
         m_MethodName: buyItemSlowPotion
         m_Mode: 1
         m_Arguments:
@@ -16490,7 +16490,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1937015527}
+      - m_Target: {fileID: 0}
         m_MethodName: buyItemInvulnerablePotion
         m_Mode: 1
         m_Arguments:
@@ -18093,7 +18093,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1176197606}
-        m_MethodName: begin
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18614,6 +18614,53 @@ Transform:
   - {fileID: 663490471}
   m_Father: {fileID: 215860070}
   m_RootOrder: 0
+--- !u!1 &1622753770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1622753772}
+  - 114: {fileID: 1622753771}
+  m_Layer: 5
+  m_Name: MenuController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1622753771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1622753770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0042096532e24b7c96c9a1eee823f17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Menu: {fileID: 0}
+  shop: {fileID: 0}
+  player: {fileID: 0}
+--- !u!224 &1622753772
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1622753770}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.59833336, y: 0.59833336, z: 0.59833336}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 718.6629, y: 300}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1623312809
 GameObject:
   m_ObjectHideFlags: 0
@@ -19629,7 +19676,7 @@ Transform:
   - {fileID: 191674664}
   - {fileID: 1231508236}
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
 --- !u!1 &1762722688
 GameObject:
   m_ObjectHideFlags: 0
@@ -19938,7 +19985,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chickenPlayer: {fileID: 869066638}
-  menu: {fileID: 1176197606}
 --- !u!81 &1784295266
 AudioListener:
   m_ObjectHideFlags: 0
@@ -23259,7 +23305,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6b49b987e766d4b9ac45717973a164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenu: {fileID: 1176197605}
+  Menu: {fileID: 0}
+  shop: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &1937015528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23339,7 +23387,7 @@ RectTransform:
   - {fileID: 2069895695}
   - {fileID: 207256676}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 23
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}

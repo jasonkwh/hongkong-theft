@@ -3,7 +3,6 @@ using System.Collections;
 
 public class camfollow : MonoBehaviour {
 	public GameObject chickenPlayer;
-	public Menu menu;
 	Vector3 shouldPos = new Vector3 (0,0,0);
 	GameObject OldPositionForPlayer;
 	int timer = 0;
@@ -11,9 +10,12 @@ public class camfollow : MonoBehaviour {
 	int Maxtimer = 50;
 	bool keyPress = true;
 
+
 	void Update () {
+
 		//chickenPlayer = GameObject.Find ("Player2");
-		if (menu.Getstart () == true) {
+
+		if (GameObject.Find("MenuController").GetComponent<MenuController>().ReturnPlayerStatus() == true) {
 			OldPositionForPlayer = chickenPlayer;
 
 			if (Input.anyKey) {
