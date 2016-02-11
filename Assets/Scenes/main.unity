@@ -18448,6 +18448,9 @@ MonoBehaviour:
   potionScorer: {fileID: 165236, guid: 047055e41248ef74e9e7f70d5e4a740d, type: 2}
   potionLarger: {fileID: 155656, guid: 2406bc23b0e7dbc46b5240b459cc94a6, type: 2}
   endroad: -1
+  counterfornumberofCar: 0
+  maxSpawncoincounter: 20
+  Maxtimerpotion: 10
   rain: {fileID: 2106942236}
   grates: {fileID: 147972, guid: d54b1ec599f5d4040998235f6a8106e5, type: 2}
 --- !u!114 &1605907414

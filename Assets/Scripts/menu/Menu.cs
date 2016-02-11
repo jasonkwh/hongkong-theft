@@ -17,6 +17,7 @@ public class Menu : MenuController {
 		
 		shop.SetActive (true);
 		Menu.SetActive (false);
+		Debug.Log (shop.activeSelf);
 		Debug.Log ("Shop Open");
 
 	}

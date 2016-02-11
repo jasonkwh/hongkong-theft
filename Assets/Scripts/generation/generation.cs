@@ -45,14 +45,14 @@ public class generation : MonoBehaviour {
 	bool spawnend1done = false;//begin1 spawned
 	bool spawnend2done = false;//begin2 spawned
 	float speed = 0.1f ;// car spawn
-	int counterfornumberofCar = 0; // car counter
+	public int counterfornumberofCar = 0; // car counter
 	int storeoldvaleforpickbusfirst = -1;// store value for first count;
 	int storeoldvaleforpickbus2first = -1;// store value for sceond count;
 	int storeoldvaleforpickbussecond = -1;
 	int storeoldvaleforpickbus2second = -1;
 	int pickobjectotspawn = 0;// do we create car or bus
 	int spawncoin = 0;//time gap counter for normal spawn
-	int maxSpawncoincounter = 20 ;// the gap for spawn normal car  must bigger than 60 so that it does not overlap
+	public int maxSpawncoincounter = 20 ;// the gap for spawn normal car  must bigger than 60 so that it does not overlap
 	int coinsInGame = 0; // how many coins now;
 	int totalCoins = 0;
 	int maxcoinInGame = 1;
@@ -64,7 +64,7 @@ public class generation : MonoBehaviour {
 	bool change = false;
 	int maxpotion = 1;
 	int numberofpotion = 0;
-	int Maxtimerpotion  = 10;
+	public int Maxtimerpotion  = 10;
 	int scorecompare = 0 ;
 	public GameObject rain ;
 	public GameObject grates;
@@ -246,11 +246,12 @@ public class generation : MonoBehaviour {
 			GameObject carsIns = Instantiate (nameofobject )as GameObject;// create car
 			carsIns.transform.position = busintpos;	
 			numberofpotion++;
-			Maxtimerpotion += Maxtimerpotion;
+			Maxtimerpotion += 40;
 			
 		}
-	
-		if (scorecompare == maxSpawncoincounter && coinsInGame <maxcoinInGame && player.activeSelf == true ) {
+
+
+		if (scorecompare > maxSpawncoincounter && coinsInGame < maxcoinInGame && player.activeSelf == true ) {
 
 
 				coinxvalue = Random.Range (0, 8);
@@ -259,7 +260,8 @@ public class generation : MonoBehaviour {
 				carsIns.transform.position = busintpos;	
 				spawncoin = 0;
 				coinsInGame += 1; 
-				maxSpawncoincounter += maxSpawncoincounter;
+				maxSpawncoincounter += 60;
+				Debug.Log(maxSpawncoincounter);
 			if (GameObject.Find ("FloorDrain(Clone)")== null) {
 				busintpos = new Vector3 (player.transform.position.x, 1f, this.gameObject.transform.position.z + 7);// spawn in front of player
 				GameObject gratesins = Instantiate (grates)as GameObject;// create car
@@ -357,7 +359,7 @@ public class generation : MonoBehaviour {
 
 
 		
-	public void difficulty (int tnormalSpawngap , float tspeed , int tmaxcoinInGame, int tmaxSpawncoincounter ,int tnumberofcar ){
+	public void difficulty (int tnormalSpawngap , float tspeed , int tmaxcoinInGame ,int tnumberofcar ){
 
 			this.numberofcar = tnumberofcar;
 
@@ -367,7 +369,6 @@ public class generation : MonoBehaviour {
 
 			this.maxcoinInGame = tmaxcoinInGame;// max coin in game
 
-			this.maxSpawncoincounter = tmaxSpawncoincounter; // max counter for each coin to spawn
 
 		if (rain.activeSelf == true) {
 			this.speed = 0.05f;

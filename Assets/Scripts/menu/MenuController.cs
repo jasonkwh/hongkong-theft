@@ -5,6 +5,7 @@ public class MenuController : MonoBehaviour {
 	public GameObject Menu;
 	public GameObject shop;
 	public GameObject player;
+	static bool  startSetActive = false;
 
 	public void Awake (){
 		Menu = GameObject.Find ("menu");
@@ -12,12 +13,25 @@ public class MenuController : MonoBehaviour {
 		player = GameObject.Find ("thief");
 
 	}
-	public void Start (){
-		
-		player.SetActive (false);
-		shop.SetActive (false);
 
+	private void Start () {
+
+		Debug.Log (startSetActive);
+		if (startSetActive == false) {
+
+			shop.SetActive (false);
+
+			player.SetActive (false);
+
+			startSetActive = true;
+		}
+
+
+			
 	}
+
+
+
 
 	// Use this for initialization
 
@@ -25,8 +39,11 @@ public class MenuController : MonoBehaviour {
 
 	public bool ReturnPlayerStatus(){
 
-		return player.activeSelf;
+	
 
-	}
+			return player.activeSelf;
+		}
+
+
 
 }
