@@ -25,17 +25,12 @@ public class autojump2 : MonoBehaviour {
 	private float stationtimer = 0.0f;
 	//private bool done = false; // make sure bound only do once
 	int busstartXvalue = 1;
-	int numbercounter = 0; // slower counter for jump
 	float jumpdistance = 4f;
-	 float xounter = 0;
-	float xounter2 = 2;
-	 float xounter3 = 0;
-	 bool move = false;
 	int scoreaddForKeypress = 1;
 	int scoredecreaseforhit = 1;
 	bool gothit = false;
 	int deathtimer = 0;
-	int MaxJumpCd = 8;
+	float MaxJumpCd = 0.1f;
 	public GameObject life;
 	public GameObject speed;
 	public GameObject scoredouble;
@@ -43,6 +38,12 @@ public class autojump2 : MonoBehaviour {
 	public GameObject rain;
 	int counterforpotion = 0;
 	int Maxtimerpotion  = 300;
+	float jumpupvalue = 0.1f;
+	float jumpxvalue = 0.07f;
+	float jumpdownvalue = 0.1f;
+	float MaxjumpLength = 1;
+	float TotaljumpLength = 0;
+
 
 	public bool getgothit (){
 
@@ -52,11 +53,7 @@ public class autojump2 : MonoBehaviour {
 
 
 
-	public void geMaxJumpCd (int setMaxJumpCd){
 
-		MaxJumpCd = setMaxJumpCd;
-
-	}
 
 	public void setScorepoints (int addscore , int deductscore){
 
@@ -123,7 +120,7 @@ public class autojump2 : MonoBehaviour {
 				life.SetActive(false);
 				rain.SetActive(false);
 				counterforpotion =  0;
-				MaxJumpCd -= 2;
+			
 
 			}
 			if (other.gameObject.name	== "FloorDrain(Clone)") {
@@ -140,8 +137,7 @@ public class autojump2 : MonoBehaviour {
 			}
 			//if (other.gameObject.tag == "leftwall") {
 			if (other.gameObject.name	== "leftwall") {	
-				hit = true;
-				xounter3 = 0;
+				
 				Debug.Log ("left");
 				this.gameObject.transform.position = new Vector3 (this.gameObject.transform.position.x + 2.4f, 0.58f, transform.position.z);
 
@@ -151,9 +147,9 @@ public class autojump2 : MonoBehaviour {
 			//if (other.gameObject.tag == "rightwall") {
 
 			if (other.gameObject.name	== "rightwall") {
-				xounter3 = 0;
+
 				Debug.Log ("right");
-				hit = true;
+
 				this.gameObject.transform.position = new Vector3 (this.gameObject.transform.position.x - 2.4f, 0.58f, transform.position.z);
 
 			
@@ -194,7 +190,8 @@ public class autojump2 : MonoBehaviour {
 
 	
 	}
-	
+
+
 	// Update is called once per frame
 	void Update () {
 		/*
@@ -234,7 +231,8 @@ public class autojump2 : MonoBehaviour {
 		if (this.transform.position.y < 0) {
 			this.transform.position = new Vector3 (this.transform.position.x,0.58f,this.transform.position.z);
 		}
-		if (Input.touchCount > 0) {	
+
+		if (Input.touchCount > 0 && gothit == false) {	
 			if (touchpress == false) {
 				foreach (Touch touch in Input.touches) {
 					switch (touch.phase) {
@@ -245,16 +243,16 @@ public class autojump2 : MonoBehaviour {
 						left = false;
 						right = false;
 						fingerStartPos = touch.position;
-						StartCoroutine ("stationCount");
+
 						break;
-					
+
 					case TouchPhase.Moved:
 						gestureDist = (touch.position - fingerStartPos).magnitude;
-						
+
 						//if (isSwipe && gestureTime < maxSwipeTime && gestureDist > minSwipeDist) {
 						Vector2 direction = touch.position - fingerStartPos;
 						Vector2 swipeType = Vector2.zero;
-						
+
 						if (Mathf.Abs (direction.x) > Mathf.Abs (direction.y)) {
 							// the swipe is horizontal:
 							swipeType = Vector2.right * Mathf.Sign (direction.x);
@@ -262,7 +260,7 @@ public class autojump2 : MonoBehaviour {
 							// the swipe is vertical:
 							swipeType = Vector2.up * Mathf.Sign (direction.y);
 						}
-						
+
 						if (swipeType.x != 0.0f) {
 							if (swipeType.x > 0.0f) {
 								right = true;
@@ -270,11 +268,11 @@ public class autojump2 : MonoBehaviour {
 								keypress = true;
 							} else {
 								left = true;
-		
+
 								keypress = true;
 							}
 						}
-						
+
 						if (swipeType.y != 0.0f) {
 							if (swipeType.y > 0.0f) {
 								//up = true;
@@ -285,13 +283,13 @@ public class autojump2 : MonoBehaviour {
 						}
 						//}
 						break;
-					
+
 					case TouchPhase.Stationary:
-						if ((stationtimer >= 1.0f) && (stationtimer <= 2.0f)) {
-							up = true;
-						
-							keypress = true;
-						}
+
+						up = true;
+
+						keypress = true;
+
 						/*if(gestureDist > minSwipeDist)
 							if(directionUp==true)
 								moveUp();
@@ -302,7 +300,7 @@ public class autojump2 : MonoBehaviour {
 							if(directionDown==true)
 								moveDown();*/
 						break;
-					
+
 					case TouchPhase.Canceled:
 						up = false;
 						//down = false;
@@ -314,10 +312,10 @@ public class autojump2 : MonoBehaviour {
 					}
 				}
 			}
-		} else if (Input.touchCount == 0) {
+		} else
+		if (Input.touchCount == 0) {
 			if (keypress == false && gothit == false) {
-				xounter3 = 0;
-				numbercounter = 0;
+
 				this.transform.localScale = new Vector3 (0.9f, 1, 1);
 				//if (Input.GetButtonDown ("right") ) {
 				if (Input.GetKeyDown (KeyCode.RightArrow)) {
@@ -376,53 +374,29 @@ public class autojump2 : MonoBehaviour {
 			}
 			if(keypress == true ) {
 				
-			if(move == true){
-					if(numbercounter == 0 ){	
 
-					if (xounter2 == 2) {
-							
-
-						jumpingup ();
-
-					} else {
-						xounter2++;
-					}
-						
-						}
-
-				if (numbercounter == 1) {
-					if (xounter2 == 2) {	
-
-						jumpingdown ();
-					
-						move = false;
-					} else {
-						xounter2++;
-					}
-
-
-					}
-
-			
+				if (cycle == false) {
+					jumpingup ();
+				
+				} 
+				if (cycle == true) {
+					jumpingdown ();
+				
 				}
 
 		
 			}
-			if(speed.activeSelf == true){
-				MaxJumpCd = 1;
-			}
-			if (xounter3 <  MaxJumpCd) {
-
-				xounter3++;
-
-
-
-
+			if (speed.activeSelf == true) {
+				
+				MaxJumpCd = 0.2f;
+				jumpupvalue = 0.2f;
+				jumpdownvalue = 0.2f;
 			} else {
-				move = true; 
-				hit = false;
-				xounter3 = 0;
+				MaxJumpCd = 0.1f;
+				jumpupvalue = 0.1f;
+				jumpdownvalue = 0.1f;
 			}
+	
 
 
 	
@@ -435,7 +409,7 @@ public class autojump2 : MonoBehaviour {
 
 
 	void jumpingup(){
-
+		
 
 		/*if (up == false && down == false && left == false && right == false && cycle == false) {
 
@@ -453,9 +427,9 @@ public class autojump2 : MonoBehaviour {
 			
 
 				
-				endPos = new Vector3 (this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z + 1f);
+			endPos = new Vector3 (this.transform.position.x, this.transform.position.y + jumpupvalue , this.transform.position.z + jumpupvalue);
 				this.gameObject.transform.position = endPos;
-				this.transform.localScale = new Vector3 (0.9f,0.9f,1);
+				this.transform.localScale = new Vector3 (0.9f,1.1f,1);
 
 				
 
@@ -464,9 +438,9 @@ public class autojump2 : MonoBehaviour {
 
 			//0.75
 
-			endPos = new Vector3 (this.transform.position.x-0.75f, this.transform.position.y + 1f, this.transform.position.z + 0.5f);
+			endPos = new Vector3 (this.transform.position.x-jumpxvalue, this.transform.position.y + jumpupvalue , this.transform.position.z + jumpupvalue);
 			this.gameObject.transform.position = endPos;
-			this.transform.localScale = new Vector3 (0.9f,0.9f,1);
+			this.transform.localScale = new Vector3 (0.9f,1.1f,1);
 
 
 
@@ -475,18 +449,24 @@ public class autojump2 : MonoBehaviour {
 
 
 
-			endPos = new Vector3 (this.transform.position.x+0.75f, this.transform.position.y + 1f, this.transform.position.z + 0.5f);
+			endPos = new Vector3 (this.transform.position.x+jumpxvalue , this.transform.position.y + jumpupvalue , this.transform.position.z + jumpupvalue);
 			this.gameObject.transform.position = endPos;
-			this.transform.localScale = new Vector3 (0.9f,0.9f,1);
+			this.transform.localScale = new Vector3 (0.9f,1.1f,1);
 
 
 
 		}
-	
-			
-				numbercounter = 1;
-				cycle = true;
-				xounter2 = 0;
+		if (TotaljumpLength < MaxjumpLength) {
+			TotaljumpLength+= MaxJumpCd ;
+			Debug.Log (TotaljumpLength);
+
+		} else {
+			TotaljumpLength = 0;
+			cycle = true;
+
+
+		}
+
 				
 				
 	
@@ -497,7 +477,8 @@ public class autojump2 : MonoBehaviour {
 
 
 	void jumpingdown(){
-
+		
+	
 		/*if (cycle == true && up == false && down == false && left == false && right == false) {
 
 			endPos = new Vector3 (this.transform.position.x, this.transform.position.y - 1f, this.transform.position.z + 1f);
@@ -507,18 +488,18 @@ public class autojump2 : MonoBehaviour {
 
 		if (cycle == true && up == true) {
 							
-			endPos = new Vector3 (this.transform.position.x, this.transform.position.y - 1f, this.transform.position.z + 1f);
-			this.transform.localScale = new Vector3 (1f, 0.9f, 1);
+			endPos = new Vector3 (this.transform.position.x, this.transform.position.y - jumpdownvalue, this.transform.position.z + jumpupvalue);
+			this.transform.localScale = new Vector3 (1.1f, 0.9f, 1);
 			this.gameObject.transform.position = endPos;
 		}
 
-		if (left == true && cycle == true&& hit == false) {
+		if (left == true && cycle == true && hit == false) {
 
 
 
-			endPos = new Vector3 (this.transform.position.x-0.85f, this.transform.position.y - 1f, this.transform.position.z + 0.5f);
+			endPos = new Vector3 (this.transform.position.x-jumpxvalue, this.transform.position.y - jumpdownvalue, this.transform.position.z + jumpupvalue);
 			this.gameObject.transform.position = endPos;
-			this.transform.localScale = new Vector3 (1f,0.9f,1);
+			this.transform.localScale = new Vector3 (1.1f,0.9f,1);
 
 
 
@@ -527,22 +508,33 @@ public class autojump2 : MonoBehaviour {
 
 
 
-			endPos = new Vector3 (this.transform.position.x+0.85f, this.transform.position.y - 1f, this.transform.position.z + 0.5f);
+			endPos = new Vector3 (this.transform.position.x+jumpxvalue, this.transform.position.y - jumpdownvalue, this.transform.position.z + jumpupvalue);
 			this.gameObject.transform.position = endPos;
-			this.transform.localScale = new Vector3 (1f,0.9f,1);
+			this.transform.localScale = new Vector3 (1.1f,0.9f,1);
 
 
 
 		}
+		if (TotaljumpLength < MaxjumpLength) {
+			TotaljumpLength += MaxJumpCd ;
 
-				xounter2 = 0;
-				up = false;
-				left = false;
-				right = false;
-				down = false;
-				cycle = false;
-				keypress = false;
-				numbercounter = 0;
+
+
+
+		} 
+		else {
+			
+			TotaljumpLength = 0;
+			cycle = false;
+			up = false;
+			left = false;
+			right = false;
+			down = false;
+			keypress = false;
+
+
+		}
+			
 				
 
 
@@ -554,9 +546,4 @@ public class autojump2 : MonoBehaviour {
 
 
 
-
-	IEnumerator stationCount() {
-		yield return new WaitForSeconds(0.1f);
-		stationtimer = stationtimer + 0.1f;
-	}
 }

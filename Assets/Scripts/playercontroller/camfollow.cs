@@ -20,7 +20,7 @@ public class camfollow : MonoBehaviour {
 
 			if (Input.anyKey) {
 				if (keyPress == false) {
-					this.gameObject.transform.position = new Vector3 (chickenPlayer.transform.position.x, 1, chickenPlayer.transform.position.z + 8);
+					this.gameObject.transform.position = new Vector3 (chickenPlayer.transform.position.x, 1, chickenPlayer.transform.position.z + 5);
 					timer = 0;
 
 
@@ -43,7 +43,7 @@ public class camfollow : MonoBehaviour {
 		
 			if (keyPress == true) {
 				Vector3 Carm = new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
-				Vector3 Player = new Vector3 (chickenPlayer.transform.position.x, chickenPlayer.transform.position.y, chickenPlayer.transform.position.z + 8);
+				Vector3 Player = new Vector3 (chickenPlayer.transform.position.x, chickenPlayer.transform.position.y, chickenPlayer.transform.position.z + 5);
 				shouldPos = Vector3.Lerp (Carm, Player, Time.deltaTime);	
 				this.gameObject.transform.position = new Vector3 (shouldPos.x, 1, shouldPos.z);
 				OldPositionForPlayer = chickenPlayer;
