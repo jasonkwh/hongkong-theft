@@ -43,6 +43,11 @@ public class autojump2 : MonoBehaviour {
 	float jumpdownvalue = 0.1f;
 	float MaxjumpLength = 1;
 	float TotaljumpLength = 0;
+	Vector3 fix_position;
+	Vector3 velocity ;
+	bool rotation = false;
+	int keyPressStorage = -1;
+	int oldkeyPressStorage = -1;
 
 
 	public bool getgothit (){
@@ -76,6 +81,7 @@ public class autojump2 : MonoBehaviour {
 		PlayerPrefs.SetInt ("life",Maxtimerpotion);
 		PlayerPrefs.SetInt ("score",Maxtimerpotion);
 		PlayerPrefs.SetInt ("speed",Maxtimerpotion);
+	
 
 	}
 	/*
@@ -188,7 +194,198 @@ public class autojump2 : MonoBehaviour {
 		}
 	//	if (other.gameObject.tag == "police") {
 
-	
+	}
+
+
+	void FixedUpdate (){
+
+		fix_position = new Vector3 (this.transform.position.x, this.transform.position.y, this.transform.position.z);
+		fix_position += velocity * Time.fixedDeltaTime;
+
+
+		if(keypress == true ) {
+
+		
+			if (cycle == false) {
+				jumpingup ();
+
+			} 
+			if (cycle == true) {
+
+				
+				jumpingdown ();
+				oldkeyPressStorage =  keyPressStorage ;
+
+			}
+
+
+		}
+
+
+	}
+
+
+	void jumpingup(){
+
+
+		/*if (up == false && down == false && left == false && right == false && cycle == false) {
+
+
+
+			endPos = new Vector3 (this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z + 1f);
+			this.gameObject.transform.position = endPos;
+			this.transform.localScale = new Vector3 (1.1f,0.8f,1);
+
+
+
+		}*/
+
+		if (up == true && cycle == false) {
+
+			velocity = new Vector3 (0.0f,0.0f,4.9f);
+
+			//endPos = new Vector3 (this.transform.position.x, this.transform.position.y + jumpupvalue , this.transform.position.z + jumpupvalue);
+			//this.transform.Translate (endPos * Time.deltaTime);
+			this.gameObject.transform.position = fix_position + velocity*(Time.time - Time.fixedTime);
+		
+			//this.gameObject.transform.position = endPos;
+			this.transform.localScale = new Vector3 (0.9f,1.1f,1);
+
+
+
+		}
+		if (left == true && cycle == false && hit == false) {
+
+			//0.75
+			velocity = new Vector3 (-4.9f,0.0f,4.9f);
+
+			//endPos = new Vector3 (this.transform.position.x-jumpxvalue, this.transform.position.y + jumpupvalue , this.transform.position.z + jumpupvalue);
+			//this.gameObject.transform.position = endPos;
+			this.gameObject.transform.position = fix_position + velocity*(Time.time - Time.fixedTime);
+			this.transform.localScale = new Vector3 (0.9f,1.1f,1);
+
+
+
+		}
+		if (right == true && cycle == false&& hit == false) {
+
+			this.transform.Rotate(Vector3.right * Time.deltaTime);
+			velocity = new Vector3 (4.9f,0.0f,4.9f);
+			this.gameObject.transform.position = fix_position + velocity*(Time.time - Time.fixedTime);
+			//endPos = new Vector3 (this.transform.position.x+jumpxvalue , this.transform.position.y + jumpupvalue , this.transform.position.z + jumpupvalue);
+			//this.gameObject.transform.position = endPos;
+			this.transform.localScale = new Vector3 (0.9f,1.1f,1);
+
+
+
+		}
+		if (TotaljumpLength < MaxjumpLength) {
+			TotaljumpLength+= MaxJumpCd ;
+
+
+		} else {
+			TotaljumpLength = 0;
+			cycle = true;
+
+
+		}
+
+
+
+
+
+
+
+	}
+
+
+	void jumpingdown(){
+
+
+		/*if (cycle == true && up == false && down == false && left == false && right == false) {
+
+			endPos = new Vector3 (this.transform.position.x, this.transform.position.y - 1f, this.transform.position.z + 1f);
+			this.transform.localScale = new Vector3 (1, 0.9f, 1);
+			this.gameObject.transform.position = endPos;
+		}*/
+
+		if (cycle == true && up == true) {
+			velocity = new Vector3 (0.0f,0.0f,4.9f);
+			//endPos = new Vector3 (this.transform.position.x, this.transform.position.y - jumpdownvalue, this.transform.position.z + jumpupvalue);
+			this.transform.localScale = new Vector3 (1.1f, 0.9f, 1);
+
+			this.gameObject.transform.position = fix_position + velocity*(Time.time - Time.fixedTime);
+			//this.transform.Translate (endPos * Time.deltaTime);
+			//	this.gameObject.transform.position = endPos;
+		}
+
+		if (left == true && cycle == true && hit == false) {
+			
+			velocity = new Vector3 (-4.9f,0.0f,4.9f);
+			this.gameObject.transform.position = fix_position + velocity*(Time.time - Time.fixedTime);
+			//endPos = new Vector3 (this.transform.position.x-jumpxvalue, this.transform.position.y - jumpdownvalue, this.transform.position.z + jumpupvalue);
+			//this.gameObject.transform.position = endPos;
+			this.transform.localScale = new Vector3 (1.1f,0.9f,1);
+
+
+
+		}
+		if (right == true && cycle == true && hit == false) {
+
+			this.transform.Rotate(Vector3.right * Time.deltaTime);
+			velocity = new Vector3 (4.9f,0.0f,4.9f);
+			this.gameObject.transform.position = fix_position + velocity*(Time.time - Time.fixedTime);
+			//endPos = new Vector3 (this.transform.position.x+jumpxvalue, this.transform.position.y - jumpdownvalue, this.transform.position.z + jumpupvalue);
+			//this.gameObject.transform.position = endPos;
+			this.transform.localScale = new Vector3 (1.1f,0.9f,1);
+
+
+
+		}
+		if (TotaljumpLength < MaxjumpLength) {
+			TotaljumpLength += MaxJumpCd ;
+
+
+
+		} 
+		else {
+
+			TotaljumpLength = 0;
+			cycle = false;
+			up = false;
+			left = false;
+			right = false;
+			down = false;
+			keypress = false;
+
+
+		}
+
+
+
+
+
+	}
+
+	void rotations (){
+		
+		if (oldkeyPressStorage != keyPressStorage) {
+			rotation = false;
+
+		}
+		if (rotation == false && keyPressStorage == 0) {
+			this.transform.rotation = Quaternion.Euler(0,90,0);
+			rotation = true;
+		} else
+			if (rotation == false && keyPressStorage == 1) {
+			this.transform.rotation = Quaternion.Euler(0,-90,0);	
+
+			rotation = true;
+			} else	if (rotation == false && keyPressStorage == 2 ) {
+				this.transform.rotation = Quaternion.Euler(0,0,0);
+
+			}
+
 	}
 
 
@@ -264,12 +461,14 @@ public class autojump2 : MonoBehaviour {
 						if (swipeType.x != 0.0f) {
 							if (swipeType.x > 0.0f) {
 								right = true;
-
+								keyPressStorage = 0;
 								keypress = true;
+								rotations ();
 							} else {
 								left = true;
-
+								keyPressStorage = 1;
 								keypress = true;
+								rotations ();
 							}
 						}
 
@@ -287,8 +486,9 @@ public class autojump2 : MonoBehaviour {
 					case TouchPhase.Stationary:
 
 						up = true;
-
+						keyPressStorage = 2;
 						keypress = true;
+						rotations ();
 
 						/*if(gestureDist > minSwipeDist)
 							if(directionUp==true)
@@ -306,7 +506,7 @@ public class autojump2 : MonoBehaviour {
 						//down = false;
 						left = false;
 						right = false;
-						stationtimer = 0.0f;
+
 						//touchpress = false;
 						break;
 					}
@@ -324,9 +524,11 @@ public class autojump2 : MonoBehaviour {
 					down = false;					
 					left = false;
 					right = true;
+					keyPressStorage = 0;
 					score += scoreaddForKeypress;
 					keypress = true;// we have press a key
-
+						rotations ();
+				
 				
 
 				}
@@ -337,7 +539,12 @@ public class autojump2 : MonoBehaviour {
 					left = true;
 					right = false;
 					keypress = true;
+					keyPressStorage = 1;
 					score += scoreaddForKeypress;
+					rotations ();
+				
+				
+			
 
 				}
 				//if (Input.GetButtonDown ("left") ) {
@@ -349,6 +556,10 @@ public class autojump2 : MonoBehaviour {
 					right = false;
 					keypress = true;
 					score += scoreaddForKeypress;
+					keyPressStorage = 2;
+
+					rotations ();
+				
 
 
 
@@ -372,20 +583,7 @@ public class autojump2 : MonoBehaviour {
 				}
 
 			}
-			if(keypress == true ) {
-				
 
-				if (cycle == false) {
-					jumpingup ();
-				
-				} 
-				if (cycle == true) {
-					jumpingdown ();
-				
-				}
-
-		
-			}
 			if (speed.activeSelf == true) {
 				
 				MaxJumpCd = 0.2f;
@@ -402,144 +600,16 @@ public class autojump2 : MonoBehaviour {
 	
 		}
 
+
+
+	
 	
 	
 	}
 
 
 
-	void jumpingup(){
-		
 
-		/*if (up == false && down == false && left == false && right == false && cycle == false) {
-
-
-
-			endPos = new Vector3 (this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z + 1f);
-			this.gameObject.transform.position = endPos;
-			this.transform.localScale = new Vector3 (1.1f,0.8f,1);
-
-
-
-		}*/
-		
-		if (up == true && cycle == false) {
-			
-
-				
-			endPos = new Vector3 (this.transform.position.x, this.transform.position.y + jumpupvalue , this.transform.position.z + jumpupvalue);
-				this.gameObject.transform.position = endPos;
-				this.transform.localScale = new Vector3 (0.9f,1.1f,1);
-
-				
-
-		}
-		if (left == true && cycle == false && hit == false) {
-
-			//0.75
-
-			endPos = new Vector3 (this.transform.position.x-jumpxvalue, this.transform.position.y + jumpupvalue , this.transform.position.z + jumpupvalue);
-			this.gameObject.transform.position = endPos;
-			this.transform.localScale = new Vector3 (0.9f,1.1f,1);
-
-
-
-		}
-		if (right == true && cycle == false&& hit == false) {
-
-
-
-			endPos = new Vector3 (this.transform.position.x+jumpxvalue , this.transform.position.y + jumpupvalue , this.transform.position.z + jumpupvalue);
-			this.gameObject.transform.position = endPos;
-			this.transform.localScale = new Vector3 (0.9f,1.1f,1);
-
-
-
-		}
-		if (TotaljumpLength < MaxjumpLength) {
-			TotaljumpLength+= MaxJumpCd ;
-			Debug.Log (TotaljumpLength);
-
-		} else {
-			TotaljumpLength = 0;
-			cycle = true;
-
-
-		}
-
-				
-				
-	
-
-
-
-	}
-
-
-	void jumpingdown(){
-		
-	
-		/*if (cycle == true && up == false && down == false && left == false && right == false) {
-
-			endPos = new Vector3 (this.transform.position.x, this.transform.position.y - 1f, this.transform.position.z + 1f);
-			this.transform.localScale = new Vector3 (1, 0.9f, 1);
-			this.gameObject.transform.position = endPos;
-		}*/
-
-		if (cycle == true && up == true) {
-							
-			endPos = new Vector3 (this.transform.position.x, this.transform.position.y - jumpdownvalue, this.transform.position.z + jumpupvalue);
-			this.transform.localScale = new Vector3 (1.1f, 0.9f, 1);
-			this.gameObject.transform.position = endPos;
-		}
-
-		if (left == true && cycle == true && hit == false) {
-
-
-
-			endPos = new Vector3 (this.transform.position.x-jumpxvalue, this.transform.position.y - jumpdownvalue, this.transform.position.z + jumpupvalue);
-			this.gameObject.transform.position = endPos;
-			this.transform.localScale = new Vector3 (1.1f,0.9f,1);
-
-
-
-		}
-		if (right == true && cycle == true && hit == false) {
-
-
-
-			endPos = new Vector3 (this.transform.position.x+jumpxvalue, this.transform.position.y - jumpdownvalue, this.transform.position.z + jumpupvalue);
-			this.gameObject.transform.position = endPos;
-			this.transform.localScale = new Vector3 (1.1f,0.9f,1);
-
-
-
-		}
-		if (TotaljumpLength < MaxjumpLength) {
-			TotaljumpLength += MaxJumpCd ;
-
-
-
-
-		} 
-		else {
-			
-			TotaljumpLength = 0;
-			cycle = false;
-			up = false;
-			left = false;
-			right = false;
-			down = false;
-			keypress = false;
-
-
-		}
-			
-				
-
-
-
-	}
 		
 	
 
